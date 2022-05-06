@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "notas-enfermeria",
+  "private_key_id": "43346f5ec04f0cea7bebf55f0666a2c29d422de3",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCskW+QlMwla5Qi\nCRK/5SoBT8ddD5BgXXnw/CMuqPfKEM7y1MxbgyE5k9L4aREjNHSjp2JTIJvvetpW\nVf2K02Yx5ITIbTClhqspr5D2MwyggzikOsGOWafwD91V9KgK0PXbbJ33aDQkpOzU\nc7pLTCUpiZxfr9xmOr7J+yD0qnypvrJYIU3WHYEmTa/Lu/4/ihnu85OF+YvEDe3M\nYVSSwtUJLMay2wXdJ5roNckgFA4jAjzkvKboUAGJKxCPKxOt54QNg7BdoNJ+E3LZ\nn+/1mA2wOOt+6wuPaGmqCQK31bcJIK7lI3pWXDHJxq4HXmB9JZWfYg06IPI34Mq9\nz/4+E9cxAgMBAAECggEABxdkZWV59KU0tYfYK4bSKLLjs0stEIqy1MB1vSiAIz94\n06GDQtTzB/PPSPo/VConC2UY3SfjRI5wu7jFph9tDQqSGs7i34B21uwSKc3b/Foc\nGSKZet0sEalDPBGlWKlw2vseDDFN6D4XRd06F/dJdSkkogl+5fwOxEvTtT4uyIZe\ndKLDvoCfILB/kKcB469/3KoTKMiXT2jKZamWFW0NE4Myozblip70ok1pQUowMy1O\nijYlDOa64Txjnaigaea9QEpE3mbrFUdoAxhaNoLBaZ7Pzz45BXF1DoCKLgDu/xdL\nRr3/JCJspSYuxGrBACpKMs4BQYjEHlKKe4uxuZFNyQKBgQDVzco4saLqpdlLKseu\nL6MhE//DoVp0JK5MySOwBClAexPtqL1i3DFfbhqOzXfoxY8My9yV8FZiXjuMJ8Pc\nUUod0nvn7bD11UioxxjxkNPwhSzkk+1q9/tG5IfN1Laz2DJAEXT9LCGfUuLhZbCb\nY97prD2pYBpkcUQEKrZ2iPEW2QKBgQDOoEDsB15bA58DhpTAu9K4cE36d91PWX9H\nC7nn/6tL2rLfiRWv4d3clfEct5boLFEZ7GUV2QsGrQ4FUfr/wDhKuIDn66NXtB3m\nmeay1h/W1n8QelJPSk01aBEIuqnnBC30lI/I5qMbrAf27CFLq9mSPWLQGAxQYmtR\nLtt604P8GQKBgEfNAYGCnlzA77Vfm4lytAzyw2z2bgMdIm/lCJge/Z+K9clVZqyh\nl+8dccvNUtyYJA8/E0hDWy9TyBmsbQk7P3G+cyATYd9dDjaoDkdpxNM8VjQ5PX0z\n5G4NZ1IHgofpLg74DdrMDEqOMmVRmjrFEmJVFqwf+x0KMLZZhcdO+/AZAoGBAKyT\nWkYIjX001A3szLcA6KmVWvu0O0p39H8RQy+K8bYELlvXMh7ZZiVDssMKb2bxBLfD\nIlaSFcx4o3o8E4iiMiHuYfPScnXhAQxGRFHf123nbu8DS1XgOAZAKeIBjcBeVEew\nATuJrneBQpGwfMqn+KtUzAAD5d0JppqCqVu358eZAoGAKyYxiBJA58VbVfZBVMDN\nguT39C4Sva8sOeIu3fVqQNRJI9tjKF3fxSuezWznE4P4MtyTdN/au+Cm2E7pTOYG\nnCPGb73OsG+dIcQYqz91oZSp18A2TCnwT+2pcldtFGp61nLeK0Z+7KNRJYQ6hM5q\nycKuWNNQttSzSlrLi83q4xE=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-ect2k@notas-enfermeria.iam.gserviceaccount.com",
+  "client_id": "117990039900176523107",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-ect2k%40notas-enfermeria.iam.gserviceaccount.com"
+}
