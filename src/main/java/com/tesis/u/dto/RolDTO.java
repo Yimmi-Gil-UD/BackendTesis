@@ -1,7 +1,5 @@
 package com.tesis.u.dto;
 
-import lombok.Data;
-
 
 public class RolDTO {
 	
