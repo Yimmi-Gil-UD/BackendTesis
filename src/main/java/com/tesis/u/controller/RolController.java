@@ -41,5 +41,10 @@ public class RolController {
 	public ResponseEntity delete(@PathVariable(value = "id") String id) {
 		return new ResponseEntity(service.delete(id),HttpStatus.OK);
 	}
+	
+	/*@GetMapping(value = "/find/{id}")
+	public ResponseEntity find(@PathVariable String id) throws Exception {
+		return new ResponseEntity(service.list(id),HttpStatus.OK);
+	}*/
 
 }
