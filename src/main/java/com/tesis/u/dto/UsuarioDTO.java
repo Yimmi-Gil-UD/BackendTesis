@@ -9,7 +9,8 @@ public class UsuarioDTO {
 	private String idGenero;
 	private String idRol;
 	private String nombre;
-	private String numeroIdentificacion;
+	private long numeroIdentificacion;
+	
 	
 	
 	public String getId() {
@@ -55,10 +56,10 @@ public class UsuarioDTO {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getNumeroIdentificacion() {
+	public long getNumeroIdentificacion() {
 		return numeroIdentificacion;
 	}
-	public void setNumeroIdentificacion(String numeroIdentificacion) {
+	public void setNumeroIdentificacion(long numeroIdentificacion) {
 		this.numeroIdentificacion = numeroIdentificacion;
 	}
 	

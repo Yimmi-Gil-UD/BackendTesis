@@ -52,6 +52,7 @@ public class Usuario {
 	public void setIdRol(String idRol) {
 		this.idRol = idRol;
 	}
+
 	
 	
 	

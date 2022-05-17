@@ -3,17 +3,19 @@ package com.tesis.u.dto;
 public class LoginResponseDTO {
 	
 
-	private String idUsuario;
+	private String id;
 	private String correo;
-	//private String rol;
+	private String rol;
 	
-	
-	
-	
-	public LoginResponseDTO(String correo,/* String rol,*/ String idUsuario) {
+		public LoginResponseDTO(String correo, String rol, String id) {
 		this.correo = correo;
-		//this.rol = rol;
-		this.idUsuario = idUsuario;
+		this.rol = rol;
+		this.id = id;
+	}
+	
+	
+	public LoginResponseDTO() {
+
 	}
 	
 	public String getCorreo() {
@@ -22,17 +24,17 @@ public class LoginResponseDTO {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	/*public String getRol() {
+	public String getRol() {
 		return rol;
 	}
 	public void setRol(String rol) {
 		this.rol = rol;
-	}*/
-	public String getIdUsuario() {
-		return idUsuario;
 	}
-	public void setIdUsuario(String idUsuario) {
-		this.idUsuario = idUsuario;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	
