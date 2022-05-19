@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutionException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
@@ -25,29 +26,27 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public List<LoginResponseDTO> getByUser(LoginDTO loginDTO) throws InterruptedException, ExecutionException {
 		List<LoginResponseDTO> Listlogin = new ArrayList();
-		String correoCliente,correoPost;
+		String correoCliente, correoPost;
 		LoginResponseDTO login = new LoginResponseDTO();
 		Firestore db = FirestoreClient.getFirestore();
 		DocumentReference documentReference = db.collection("Usuario").document(loginDTO.getId());
 		ApiFuture<DocumentSnapshot> future = documentReference.get();
 		DocumentSnapshot document = future.get();
 		UsuarioDTO usuario;
+		
 		if (document.exists()) {
 			usuario = document.toObject(UsuarioDTO.class);
+			usuario.setId(document.getId());
 			
-			correoCliente = usuario.getCorreo().toString();
-			correoPost = loginDTO.getCorreo().toString();
-			//if (correoCliente == correoPost /*&& loginDTO.getContraseña() == usuario.getContraseña()*/) 
-			//{
-				String pruebaId = usuario.getId();
+			if (usuario.getCorreo().equals(loginDTO.getCorreo())  && loginDTO.getContraseña().equals(usuario.getContraseña())) {
 				login.setId(usuario.getId());
 				login.setCorreo(usuario.getCorreo());
 				login.setRol(getByRol(usuario.getIdRol()));
 				Listlogin.add(login);
 				return Listlogin;
-			//} else {
-				//return null;
-			//}
+			} else {
+				return null;
+			}
 		}
 
 		return null;
