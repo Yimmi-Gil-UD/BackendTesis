@@ -4,7 +4,7 @@ package com.tesis.u.dto;
 public class RolDTO {
 	
 	private String id;
-	private String descripcion;
+	private String nombreRol;
 	
 	
 	public String getId() {
@@ -13,11 +13,11 @@ public class RolDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getDescripcion() {
-		return descripcion;
+	public String getNombreRol() {
+		return nombreRol;
 	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setNombreRol(String nombreRol) {
+		this.nombreRol = nombreRol;
 	}
 	
 	

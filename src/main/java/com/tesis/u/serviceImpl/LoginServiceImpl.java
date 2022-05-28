@@ -16,8 +16,8 @@ import com.google.firebase.cloud.FirestoreClient;
 import com.tesis.u.dto.LoginDTO;
 import com.tesis.u.dto.LoginResponseDTO;
 import com.tesis.u.dto.RolDTO;
-import com.tesis.u.dto.UsuarioDTO;
-import com.tesis.u.entity.Usuario;
+import com.tesis.u.dto.EnfermeraDTO;
+import com.tesis.u.entity.Enfermera;
 import com.tesis.u.service.LoginService;
 
 @Service
@@ -29,19 +29,19 @@ public class LoginServiceImpl implements LoginService {
 		String correoCliente, correoPost;
 		LoginResponseDTO login = new LoginResponseDTO();
 		Firestore db = FirestoreClient.getFirestore();
-		DocumentReference documentReference = db.collection("Usuario").document(loginDTO.getId());
+		DocumentReference documentReference = db.collection("Enfermera").document(loginDTO.getId());
 		ApiFuture<DocumentSnapshot> future = documentReference.get();
 		DocumentSnapshot document = future.get();
-		UsuarioDTO usuario;
+		EnfermeraDTO enfermera;
 		
 		if (document.exists()) {
-			usuario = document.toObject(UsuarioDTO.class);
-			usuario.setId(document.getId());
+			enfermera = document.toObject(EnfermeraDTO.class);
+			enfermera.setId(document.getId());
 			
-			if (usuario.getCorreo().equals(loginDTO.getCorreo())  && loginDTO.getContraseña().equals(usuario.getContraseña())) {
-				login.setId(usuario.getId());
-				login.setCorreo(usuario.getCorreo());
-				login.setRol(getByRol(usuario.getIdRol()));
+			if (enfermera.getCorreo().equals(loginDTO.getCorreo())  && loginDTO.getPassword().equals(enfermera.getPassword())) {
+				login.setId(enfermera.getId());
+				login.setCorreo(enfermera.getCorreo());
+				login.setRol(getByRol(enfermera.getIdRol()));
 				Listlogin.add(login);
 				return Listlogin;
 			} else {
@@ -56,15 +56,13 @@ public class LoginServiceImpl implements LoginService {
 	public String getByRol(String id) throws InterruptedException, ExecutionException {
 		String descripcionRol;
 		Firestore db = FirestoreClient.getFirestore();
-		// DocumentReference documentReference =
-		// db.collection("Usuario").document(loginDTO.getCorreo());
 		DocumentReference documentReference = db.collection("Rol").document(id);
 		ApiFuture<DocumentSnapshot> future = documentReference.get();
 		DocumentSnapshot document = future.get();
 		RolDTO rol;
 		if (document.exists()) {
 			rol = document.toObject(RolDTO.class);
-			descripcionRol = rol.getDescripcion();
+			descripcionRol = rol.getNombreRol();
 			return descripcionRol;
 
 		}

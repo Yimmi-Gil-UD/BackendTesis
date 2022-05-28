@@ -1,11 +1,11 @@
 package com.tesis.u.entity;
 
-public class Usuario {
+public class Enfermera {
 	
 	private String nombre;
 	private String apellido;
 	private String correo;
-	private String contraseña;
+	private String password;
 	private long numeroIdentificacion;
 	private String idGenero;
 	private String idRol;
@@ -28,11 +28,11 @@ public class Usuario {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	public String getContraseña() {
-		return contraseña;
+	public String getPassword() {
+		return password;
 	}
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public long getNumeroIdentificacion() {
 		return numeroIdentificacion;

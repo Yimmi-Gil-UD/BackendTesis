@@ -1,10 +1,10 @@
 package com.tesis.u.dto;
 
-public class UsuarioDTO {
+public class EnfermeraDTO {
 	
 	private String id;
 	private String apellido;
-	private String contraseña;
+	private String password;
 	private String correo;
 	private String idGenero;
 	private String idRol;
@@ -26,11 +26,11 @@ public class UsuarioDTO {
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
-	public String getContraseña() {
-		return contraseña;
+	public String getPassword() {
+		return password;
 	}
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public String getCorreo() {
 		return correo;

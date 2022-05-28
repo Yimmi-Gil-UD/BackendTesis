@@ -4,42 +4,39 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.yaml.snakeyaml.introspector.PropertyUtils;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
-import com.google.firebase.database.Query;
+import com.tesis.u.dto.FundacionDTO;
 import com.tesis.u.dto.RolDTO;
+import com.tesis.u.entity.Fundacion;
 import com.tesis.u.firebase.FirebaseConfig;
-import com.tesis.u.service.RolService;
+import com.tesis.u.service.FundacionService;
 
 @Service
-public class RolServiceImpl<I,O> implements RolService{
+public class FundacionServiceImpl<I, O> implements FundacionService {
 
 	@Autowired
 	private FirebaseConfig firebase;
 
 	@Override
-	public List<RolDTO> list() {
-		List<RolDTO> response = new ArrayList();
-		RolDTO rol;
-		
+	public List<FundacionDTO> list() {
+		List<FundacionDTO> response = new ArrayList();
+		FundacionDTO fundacion;
+
 		ApiFuture<QuerySnapshot> querySnapshotApiFuture = getCollection().get();
-		
+
 		try {
-			for(DocumentSnapshot doc : querySnapshotApiFuture.get().getDocuments()) {
-				rol = doc.toObject(RolDTO.class);
-				rol.setId(doc.getId());
-				response.add(rol);
+			for (DocumentSnapshot doc : querySnapshotApiFuture.get().getDocuments()) {
+				fundacion = doc.toObject(FundacionDTO.class);
+				fundacion.setId(doc.getId());
+				response.add(fundacion);
 			}
 			return response;
 		} catch (Exception e) {
@@ -49,31 +46,27 @@ public class RolServiceImpl<I,O> implements RolService{
 	}
 
 	
-	
 	@Override
-	public Boolean save(RolDTO rol) {
-		Map<String, Object> docData = getDocData(rol);
-		
-		
+	public Boolean save(Fundacion fundacion) {
+		Map<String, Object> docData = getDocData(fundacion);
+
 		ApiFuture<WriteResult> writeResultApiFuture = getCollection().document().create(docData);
-		
+
 		try {
-			if(null != writeResultApiFuture.get()) {
+			if (null != writeResultApiFuture.get()) {
 				return Boolean.TRUE;
 			}
 			return Boolean.FALSE;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			return Boolean.FALSE;
 		}
 	}
 	
-	
-	
 
 	@Override
-	public Boolean update(String id, RolDTO rol) {
-		Map<String, Object> docData = getDocData(rol);
+	public Boolean update(String id, Fundacion fundacion) {
+		Map<String, Object> docData = getDocData(fundacion);
 		ApiFuture<WriteResult> writeResultApiFuture = getCollection().document(id).set(docData);
 		
 		try {
@@ -86,10 +79,11 @@ public class RolServiceImpl<I,O> implements RolService{
 			return Boolean.FALSE;
 		}
 	}
+	
 
 	@Override
 	public Boolean delete(String id) {
-		ApiFuture<WriteResult> writeResultApiFuture = getCollection().document(id).delete();
+	ApiFuture<WriteResult> writeResultApiFuture = getCollection().document(id).delete();
 		
 		try {
 			if(null != writeResultApiFuture.get()) {
@@ -101,16 +95,17 @@ public class RolServiceImpl<I,O> implements RolService{
 			return Boolean.FALSE;
 		}
 	}
-	
+
 	private CollectionReference getCollection() {
-		return firebase.getFirestore().collection("Rol");
+		return firebase.getFirestore().collection("Fundacion");
 	}
-	
-	private Map<String, Object> getDocData(RolDTO rol){
+
+	private Map<String, Object> getDocData(Fundacion fundacion) {
 		Map<String, Object> docData = new HashMap<>();
-		docData.put("nombreRol", rol.getNombreRol());
+		docData.put("direccion", fundacion.getDireccion());
+		docData.put("nombreFundacion", fundacion.getNombreFundacion());
+		docData.put("telefono", fundacion.getTelefono());
 		return docData;
 	}
 
-	
 }

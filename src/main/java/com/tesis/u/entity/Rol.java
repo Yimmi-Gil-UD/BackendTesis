@@ -2,14 +2,14 @@ package com.tesis.u.entity;
 
 public class Rol {
 
-	private String descripcion;
+	private String nombreRol;
 
-	public String getDescripcion() {
-		return descripcion;
+	public String getNombreRol() {
+		return nombreRol;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setNombreRol(String nombreRol) {
+		this.nombreRol = nombreRol;
 	}
 	
 	

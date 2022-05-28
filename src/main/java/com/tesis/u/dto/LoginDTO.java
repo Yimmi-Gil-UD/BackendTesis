@@ -4,7 +4,7 @@ public class LoginDTO {
 	
 	private String id;
 	private String correo;
-	private String contraseña;
+	private String password;
 	
 	public String getCorreo() {
 		return correo;
@@ -12,11 +12,11 @@ public class LoginDTO {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	public String getContraseña() {
-		return contraseña;
+	public String getPassword() {
+		return password;
 	}
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public String getId() {
 		return id;
