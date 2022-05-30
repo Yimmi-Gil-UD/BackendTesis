@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
@@ -17,7 +16,6 @@ import com.tesis.u.dto.LoginDTO;
 import com.tesis.u.dto.LoginResponseDTO;
 import com.tesis.u.dto.RolDTO;
 import com.tesis.u.dto.EnfermeraDTO;
-import com.tesis.u.entity.Enfermera;
 import com.tesis.u.service.LoginService;
 
 @Service

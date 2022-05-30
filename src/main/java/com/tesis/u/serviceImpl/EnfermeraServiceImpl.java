@@ -13,29 +13,29 @@ import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
-import com.tesis.u.dto.FundacionDTO;
-import com.tesis.u.entity.Fundacion;
+import com.tesis.u.dto.EnfermeraDTO;
+import com.tesis.u.entity.Enfermera;
 import com.tesis.u.firebase.FirebaseConfig;
-import com.tesis.u.service.FundacionService;
+import com.tesis.u.service.EnfermeraService;
 
 @Service
-public class FundacionServiceImpl implements FundacionService {
+public class EnfermeraServiceImpl implements EnfermeraService{
 
 	@Autowired
 	private FirebaseConfig firebase;
-
+	
 	@Override
-	public List<FundacionDTO> list() {
-		List<FundacionDTO> response = new ArrayList();
-		FundacionDTO fundacion;
+	public List<EnfermeraDTO> list() {
+		List<EnfermeraDTO> response = new ArrayList();
+		EnfermeraDTO enfermera;
 
 		ApiFuture<QuerySnapshot> querySnapshotApiFuture = getCollection().get();
 
 		try {
 			for (DocumentSnapshot doc : querySnapshotApiFuture.get().getDocuments()) {
-				fundacion = doc.toObject(FundacionDTO.class);
-				fundacion.setId(doc.getId());
-				response.add(fundacion);
+				enfermera = doc.toObject(EnfermeraDTO.class);
+				enfermera.setId(doc.getId());
+				response.add(enfermera);
 			}
 			return response;
 		} catch (Exception e) {
@@ -44,10 +44,9 @@ public class FundacionServiceImpl implements FundacionService {
 		}
 	}
 
-	
 	@Override
-	public Boolean save(Fundacion fundacion) {
-		Map<String, Object> docData = getDocData(fundacion);
+	public Boolean save(Enfermera enfermera) {
+		Map<String, Object> docData = getDocData(enfermera);
 
 		ApiFuture<WriteResult> writeResultApiFuture = getCollection().document().create(docData);
 
@@ -61,11 +60,10 @@ public class FundacionServiceImpl implements FundacionService {
 			return Boolean.FALSE;
 		}
 	}
-	
 
 	@Override
-	public Boolean update(String id, Fundacion fundacion) {
-		Map<String, Object> docData = getDocData(fundacion);
+	public Boolean update(String id, Enfermera enfermera) {
+		Map<String, Object> docData = getDocData(enfermera);
 		ApiFuture<WriteResult> writeResultApiFuture = getCollection().document(id).set(docData);
 		
 		try {
@@ -78,7 +76,6 @@ public class FundacionServiceImpl implements FundacionService {
 			return Boolean.FALSE;
 		}
 	}
-	
 
 	@Override
 	public Boolean delete(String id) {
@@ -94,16 +91,20 @@ public class FundacionServiceImpl implements FundacionService {
 			return Boolean.FALSE;
 		}
 	}
-
+	
 	private CollectionReference getCollection() {
-		return firebase.getFirestore().collection("Fundacion");
+		return firebase.getFirestore().collection("Enfermera");
 	}
-
-	private Map<String, Object> getDocData(Fundacion fundacion) {
+	
+	private Map<String, Object> getDocData(Enfermera enfermera) {
 		Map<String, Object> docData = new HashMap<>();
-		docData.put("direccion", fundacion.getDireccion());
-		docData.put("nombreFundacion", fundacion.getNombreFundacion());
-		docData.put("telefono", fundacion.getTelefono());
+		docData.put("nombre", enfermera.getNombre());
+		docData.put("apellido", enfermera.getApellido());
+		docData.put("correo", enfermera.getCorreo());
+		docData.put("password", enfermera.getPassword());
+		docData.put("numeroIdentificacion", enfermera.getNumeroIdentificacion());
+		docData.put("idGenero", enfermera.getIdGenero());
+		docData.put("idRol", enfermera.getIdRol());
 		return docData;
 	}
 

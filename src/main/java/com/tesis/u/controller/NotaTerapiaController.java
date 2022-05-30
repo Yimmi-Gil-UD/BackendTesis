@@ -13,35 +13,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tesis.u.entity.Fundacion;
-import com.tesis.u.service.FundacionService;
+
+import com.tesis.u.entity.NotaTerapia;
+import com.tesis.u.service.NotaTerapiaService;
 
 @RestController
-@RequestMapping(value = "/fundacion")
+@RequestMapping(value = "/notaTerapia")
 @CrossOrigin
-public class FundacionController {
+public class NotaTerapiaController {
 
 	@Autowired
-	private FundacionService fundacionService; 
+	private NotaTerapiaService notaTerapiaService;
 	
 	@GetMapping(value = "/list")
 	public ResponseEntity list() {
-		return new ResponseEntity(fundacionService.list(), HttpStatus.OK);
+		return new ResponseEntity(notaTerapiaService.list(), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/save")
-	public ResponseEntity save(@RequestBody Fundacion fundacion) {
-		return new ResponseEntity(fundacionService.save(fundacion),HttpStatus.OK);
+	public ResponseEntity save(@RequestBody NotaTerapia notaTerapia) {
+		return new ResponseEntity(notaTerapiaService.save(notaTerapia),HttpStatus.OK);
 	}
 	
 	@PutMapping(value = "/update/{id}")
-	public ResponseEntity edit(@PathVariable(value = "id") String id,@RequestBody Fundacion fundacion) {
-		return new ResponseEntity(fundacionService.update(id, fundacion), HttpStatus.OK);
+	public ResponseEntity edit(@PathVariable(value = "id") String id,@RequestBody NotaTerapia notaTerapia) {
+		return new ResponseEntity(notaTerapiaService.update(id, notaTerapia), HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity delete(@PathVariable(value = "id") String id) {
-		return new ResponseEntity(fundacionService.delete(id),HttpStatus.OK);
+		return new ResponseEntity(notaTerapiaService.delete(id),HttpStatus.OK);
 	}
+	
 	
 }

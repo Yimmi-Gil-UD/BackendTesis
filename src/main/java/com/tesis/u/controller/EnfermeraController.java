@@ -13,35 +13,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tesis.u.entity.Fundacion;
-import com.tesis.u.service.FundacionService;
+import com.tesis.u.entity.Enfermera;
+import com.tesis.u.service.EnfermeraService;
 
 @RestController
-@RequestMapping(value = "/fundacion")
+@RequestMapping(value = "/enfermera")
 @CrossOrigin
-public class FundacionController {
-
+public class EnfermeraController {
+	
 	@Autowired
-	private FundacionService fundacionService; 
+	private EnfermeraService enfermeraService;
 	
 	@GetMapping(value = "/list")
 	public ResponseEntity list() {
-		return new ResponseEntity(fundacionService.list(), HttpStatus.OK);
+		return new ResponseEntity(enfermeraService.list(), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/save")
-	public ResponseEntity save(@RequestBody Fundacion fundacion) {
-		return new ResponseEntity(fundacionService.save(fundacion),HttpStatus.OK);
+	public ResponseEntity save(@RequestBody Enfermera enfermera) {
+		return new ResponseEntity(enfermeraService.save(enfermera),HttpStatus.OK);
 	}
 	
 	@PutMapping(value = "/update/{id}")
-	public ResponseEntity edit(@PathVariable(value = "id") String id,@RequestBody Fundacion fundacion) {
-		return new ResponseEntity(fundacionService.update(id, fundacion), HttpStatus.OK);
+	public ResponseEntity edit(@PathVariable(value = "id") String id,@RequestBody Enfermera enfermera) {
+		return new ResponseEntity(enfermeraService.update(id, enfermera), HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity delete(@PathVariable(value = "id") String id) {
-		return new ResponseEntity(fundacionService.delete(id),HttpStatus.OK);
+		return new ResponseEntity(enfermeraService.delete(id),HttpStatus.OK);
 	}
-	
+
 }

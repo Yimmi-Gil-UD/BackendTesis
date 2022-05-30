@@ -13,29 +13,29 @@ import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
-import com.tesis.u.dto.FundacionDTO;
-import com.tesis.u.entity.Fundacion;
+import com.tesis.u.dto.TipoTerapiaDTO;
+import com.tesis.u.entity.TipoTerapia;
 import com.tesis.u.firebase.FirebaseConfig;
-import com.tesis.u.service.FundacionService;
+import com.tesis.u.service.TipoTerapiaService;
 
 @Service
-public class FundacionServiceImpl implements FundacionService {
+public class TipoTerapiaServiceImpl implements TipoTerapiaService{
 
 	@Autowired
 	private FirebaseConfig firebase;
-
+	
 	@Override
-	public List<FundacionDTO> list() {
-		List<FundacionDTO> response = new ArrayList();
-		FundacionDTO fundacion;
+	public List<TipoTerapiaDTO> list() {
+		List<TipoTerapiaDTO> response = new ArrayList();
+		TipoTerapiaDTO terapia;
 
 		ApiFuture<QuerySnapshot> querySnapshotApiFuture = getCollection().get();
 
 		try {
 			for (DocumentSnapshot doc : querySnapshotApiFuture.get().getDocuments()) {
-				fundacion = doc.toObject(FundacionDTO.class);
-				fundacion.setId(doc.getId());
-				response.add(fundacion);
+				terapia = doc.toObject(TipoTerapiaDTO.class);
+				terapia.setId(doc.getId());
+				response.add(terapia);
 			}
 			return response;
 		} catch (Exception e) {
@@ -46,8 +46,8 @@ public class FundacionServiceImpl implements FundacionService {
 
 	
 	@Override
-	public Boolean save(Fundacion fundacion) {
-		Map<String, Object> docData = getDocData(fundacion);
+	public Boolean save(TipoTerapia terapia) {
+		Map<String, Object> docData = getDocData(terapia);
 
 		ApiFuture<WriteResult> writeResultApiFuture = getCollection().document().create(docData);
 
@@ -61,11 +61,10 @@ public class FundacionServiceImpl implements FundacionService {
 			return Boolean.FALSE;
 		}
 	}
-	
 
 	@Override
-	public Boolean update(String id, Fundacion fundacion) {
-		Map<String, Object> docData = getDocData(fundacion);
+	public Boolean update(String id, TipoTerapia terapia) {
+		Map<String, Object> docData = getDocData(terapia);
 		ApiFuture<WriteResult> writeResultApiFuture = getCollection().document(id).set(docData);
 		
 		try {
@@ -78,7 +77,6 @@ public class FundacionServiceImpl implements FundacionService {
 			return Boolean.FALSE;
 		}
 	}
-	
 
 	@Override
 	public Boolean delete(String id) {
@@ -94,16 +92,14 @@ public class FundacionServiceImpl implements FundacionService {
 			return Boolean.FALSE;
 		}
 	}
-
+	
 	private CollectionReference getCollection() {
-		return firebase.getFirestore().collection("Fundacion");
+		return firebase.getFirestore().collection("TipoTerapia");
 	}
-
-	private Map<String, Object> getDocData(Fundacion fundacion) {
+	
+	private Map<String, Object> getDocData(TipoTerapia terapia) {
 		Map<String, Object> docData = new HashMap<>();
-		docData.put("direccion", fundacion.getDireccion());
-		docData.put("nombreFundacion", fundacion.getNombreFundacion());
-		docData.put("telefono", fundacion.getTelefono());
+		docData.put("nombreTerapia", terapia.getNombreTerapia());
 		return docData;
 	}
 

@@ -3,14 +3,13 @@ package com.tesis.u.dto;
 public class EnfermeraDTO {
 	
 	private String id;
+	private String nombre;
 	private String apellido;
-	private String password;
 	private String correo;
+	private String password;
+	private long numeroIdentificacion;
 	private String idGenero;
 	private String idRol;
-	private String nombre;
-	private long numeroIdentificacion;
-	
 	
 	
 	public String getId() {

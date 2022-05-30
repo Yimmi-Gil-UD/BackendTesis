@@ -1,7 +1,6 @@
 package com.tesis.u.service;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import com.tesis.u.dto.RolDTO;
 

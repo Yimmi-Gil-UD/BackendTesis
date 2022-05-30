@@ -13,29 +13,29 @@ import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
-import com.tesis.u.dto.FundacionDTO;
-import com.tesis.u.entity.Fundacion;
+import com.tesis.u.dto.NotaTerapiaDTO;
+import com.tesis.u.entity.NotaTerapia;
 import com.tesis.u.firebase.FirebaseConfig;
-import com.tesis.u.service.FundacionService;
+import com.tesis.u.service.NotaTerapiaService;
 
 @Service
-public class FundacionServiceImpl implements FundacionService {
-
+public class NotaTerapiaServiceImpl implements NotaTerapiaService{
+	
 	@Autowired
 	private FirebaseConfig firebase;
 
 	@Override
-	public List<FundacionDTO> list() {
-		List<FundacionDTO> response = new ArrayList();
-		FundacionDTO fundacion;
+	public List<NotaTerapiaDTO> list() {
+		List<NotaTerapiaDTO> response = new ArrayList();
+		NotaTerapiaDTO notaTerapia;
 
 		ApiFuture<QuerySnapshot> querySnapshotApiFuture = getCollection().get();
 
 		try {
 			for (DocumentSnapshot doc : querySnapshotApiFuture.get().getDocuments()) {
-				fundacion = doc.toObject(FundacionDTO.class);
-				fundacion.setId(doc.getId());
-				response.add(fundacion);
+				notaTerapia = doc.toObject(NotaTerapiaDTO.class);
+				notaTerapia.setId(doc.getId());
+				response.add(notaTerapia);
 			}
 			return response;
 		} catch (Exception e) {
@@ -44,10 +44,9 @@ public class FundacionServiceImpl implements FundacionService {
 		}
 	}
 
-	
 	@Override
-	public Boolean save(Fundacion fundacion) {
-		Map<String, Object> docData = getDocData(fundacion);
+	public Boolean save(NotaTerapia notaTerapia) {
+		Map<String, Object> docData = getDocData(notaTerapia);
 
 		ApiFuture<WriteResult> writeResultApiFuture = getCollection().document().create(docData);
 
@@ -61,11 +60,10 @@ public class FundacionServiceImpl implements FundacionService {
 			return Boolean.FALSE;
 		}
 	}
-	
 
 	@Override
-	public Boolean update(String id, Fundacion fundacion) {
-		Map<String, Object> docData = getDocData(fundacion);
+	public Boolean update(String id, NotaTerapia notaTerapia) {
+		Map<String, Object> docData = getDocData(notaTerapia);
 		ApiFuture<WriteResult> writeResultApiFuture = getCollection().document(id).set(docData);
 		
 		try {
@@ -78,11 +76,10 @@ public class FundacionServiceImpl implements FundacionService {
 			return Boolean.FALSE;
 		}
 	}
-	
 
 	@Override
 	public Boolean delete(String id) {
-	ApiFuture<WriteResult> writeResultApiFuture = getCollection().document(id).delete();
+    ApiFuture<WriteResult> writeResultApiFuture = getCollection().document(id).delete();
 		
 		try {
 			if(null != writeResultApiFuture.get()) {
@@ -94,16 +91,24 @@ public class FundacionServiceImpl implements FundacionService {
 			return Boolean.FALSE;
 		}
 	}
-
+	
 	private CollectionReference getCollection() {
-		return firebase.getFirestore().collection("Fundacion");
+		return firebase.getFirestore().collection("NotaTerapia");
 	}
-
-	private Map<String, Object> getDocData(Fundacion fundacion) {
+	
+	private Map<String, Object> getDocData(NotaTerapia notaTerapia) {
 		Map<String, Object> docData = new HashMap<>();
-		docData.put("direccion", fundacion.getDireccion());
-		docData.put("nombreFundacion", fundacion.getNombreFundacion());
-		docData.put("telefono", fundacion.getTelefono());
+		docData.put("idPaciente", notaTerapia.getIdPaciente());
+		docData.put("objetivo", notaTerapia.getObjetivo());
+		docData.put("estructuraCorporal", notaTerapia.getEstructuraCorporal());
+		docData.put("funcionCorporal", notaTerapia.getFuncionCorporal());
+		docData.put("pronostico", notaTerapia.getPronostico());
+		docData.put("planTrabajo", notaTerapia.getPlanTrabajo());
+		docData.put("fechaNotaTerapia", notaTerapia.getFechaNotaTerapia());
+		docData.put("horaNotaTerapia", notaTerapia.getHoraNotaTerapia());
+		docData.put("observacion", notaTerapia.getObservacion());
+		docData.put("idTipoTerapia", notaTerapia.getIdTipoTerapia());
+		docData.put("idEnfermera", notaTerapia.getIdEnfermera());
 		return docData;
 	}
 
