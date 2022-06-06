@@ -37,11 +37,12 @@
 			<artifactId>firebase-admin</artifactId>
 			<version>8.1.0</version>
 		</dependency>
-			<dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>test</scope>
-		</dependency>			
+		</dependency>	
+			
 	</dependencies>
 
 	<build>
