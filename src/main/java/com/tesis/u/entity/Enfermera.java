@@ -4,11 +4,13 @@ public class Enfermera {
 	
 	private String nombre;
 	private String apellido;
+	private String idTipoDocumentoE;
+	private long numeroIdentificacion;
 	private String correo;
 	private String password;
-	private long numeroIdentificacion;
 	private String idGenero;
 	private String idRol;
+	
 	
 	public String getNombre() {
 		return nombre;
@@ -22,6 +24,18 @@ public class Enfermera {
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
+	public String getIdTipoDocumentoE() {
+		return idTipoDocumentoE;
+	}
+	public void setIdTipoDocumentoE(String idTipoDocumentoE) {
+		this.idTipoDocumentoE = idTipoDocumentoE;
+	}
+	public long getNumeroIdentificacion() {
+		return numeroIdentificacion;
+	}
+	public void setNumeroIdentificacion(long numeroIdentificacion) {
+		this.numeroIdentificacion = numeroIdentificacion;
+	}
 	public String getCorreo() {
 		return correo;
 	}
@@ -33,12 +47,6 @@ public class Enfermera {
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	public long getNumeroIdentificacion() {
-		return numeroIdentificacion;
-	}
-	public void setNumeroIdentificacion(long numeroIdentificacion) {
-		this.numeroIdentificacion = numeroIdentificacion;
 	}
 	public String getIdGenero() {
 		return idGenero;
@@ -52,6 +60,11 @@ public class Enfermera {
 	public void setIdRol(String idRol) {
 		this.idRol = idRol;
 	}
+	
+	
+	
+	
+	
 
 	
 	

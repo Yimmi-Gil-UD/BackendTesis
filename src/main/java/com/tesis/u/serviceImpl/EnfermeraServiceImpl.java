@@ -101,9 +101,10 @@ public class EnfermeraServiceImpl implements EnfermeraService{
 		Map<String, Object> docData = new HashMap<>();
 		docData.put("nombre", enfermera.getNombre());
 		docData.put("apellido", enfermera.getApellido());
+		docData.put("idTipoDocumentoE", enfermera.getIdTipoDocumentoE());
+		docData.put("numeroIdentificacion", enfermera.getNumeroIdentificacion());
 		docData.put("correo", enfermera.getCorreo());
 		docData.put("password", enfermera.getPassword());
-		docData.put("numeroIdentificacion", enfermera.getNumeroIdentificacion());
 		docData.put("idGenero", enfermera.getIdGenero());
 		docData.put("idRol", enfermera.getIdRol());
 		return docData;

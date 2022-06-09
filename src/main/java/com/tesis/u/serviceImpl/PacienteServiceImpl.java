@@ -100,6 +100,8 @@ public class PacienteServiceImpl implements PacienteService{
 		Map<String, Object> docData = new HashMap<>();
 		docData.put("nombrePaciente", paciente.getNombrePaciente());
 		docData.put("apellidoPaciente", paciente.getApellidoPaciente());
+		docData.put("numeroIdentificacionP", paciente.getNumeroIdentificacionP());
+		docData.put("idTipoDocumentoP", paciente.getIdTipoDocumentoP());
 		docData.put("fechaNacimiento", paciente.getFechaNacimiento());
 		docData.put("direccion", paciente.getDireccion());
 		docData.put("telefono", paciente.getTelefono());

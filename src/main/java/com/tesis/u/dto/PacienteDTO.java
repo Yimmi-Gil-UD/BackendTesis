@@ -7,6 +7,8 @@ public class PacienteDTO {
 	private String id;
 	private String nombrePaciente;
 	private String apellidoPaciente;
+	private long numeroIdentificacionP;
+	private String idTipoDocumentoP;
 	private Date fechaNacimiento;
 	private String direccion;
 	private long telefono;
@@ -33,6 +35,18 @@ public class PacienteDTO {
 	}
 	public void setApellidoPaciente(String apellidoPaciente) {
 		this.apellidoPaciente = apellidoPaciente;
+	}
+	public long getNumeroIdentificacionP() {
+		return numeroIdentificacionP;
+	}
+	public void setNumeroIdentificacionP(long numeroIdentificacionP) {
+		this.numeroIdentificacionP = numeroIdentificacionP;
+	}
+	public String getIdTipoDocumentoP() {
+		return idTipoDocumentoP;
+	}
+	public void setIdTipoDocumentoP(String idTipoDocumentoP) {
+		this.idTipoDocumentoP = idTipoDocumentoP;
 	}
 	public Date getFechaNacimiento() {
 		return fechaNacimiento;
@@ -76,6 +90,7 @@ public class PacienteDTO {
 	public void setIdFundacion(String idFundacion) {
 		this.idFundacion = idFundacion;
 	}
+	
 	
 	
 	
