@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
@@ -24,7 +26,7 @@ import com.tesis.u.service.LoginService;
 public class LoginServiceImpl implements LoginService {
 
 	@Override
-	public List<LoginResponseDTO> getByUser(LoginDTO loginDTO) throws InterruptedException, ExecutionException {
+	public LoginResponseDTO getByUser(LoginDTO loginDTO) throws InterruptedException, ExecutionException {
 		List<LoginResponseDTO> Listlogin = new ArrayList();
 		String correoCliente, correoPost;
 		LoginResponseDTO login = new LoginResponseDTO();
@@ -42,8 +44,10 @@ public class LoginServiceImpl implements LoginService {
 				login.setId(enfermera.getId());
 				login.setCorreo(enfermera.getCorreo());
 				login.setRol(getByRol(enfermera.getIdRol()));
-				Listlogin.add(login);
-				return Listlogin;
+				//Listlogin.add(login);
+				LoginResponseDTO loginFinal = new LoginResponseDTO(login.getId(),login.getCorreo(),login.getRol());
+				//return Listlogin;
+					return loginFinal;
 			} else {
 				return null;
 			}

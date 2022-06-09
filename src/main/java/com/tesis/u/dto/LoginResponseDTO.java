@@ -7,10 +7,11 @@ public class LoginResponseDTO {
 	private String correo;
 	private String rol;
 	
-		public LoginResponseDTO(String correo, String rol, String id) {
+		public LoginResponseDTO(String id,String correo, String rol) {
+		this.id = id;
 		this.correo = correo;
 		this.rol = rol;
-		this.id = id;
+		
 	}
 	
 	
