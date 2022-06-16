@@ -10,10 +10,13 @@ import org.springframework.stereotype.Service;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
+import com.tesis.u.dto.EnfermeraDTO;
 import com.tesis.u.dto.NotaTerapiaDTO;
+import com.tesis.u.dto.PacienteDTO;
 import com.tesis.u.entity.NotaTerapia;
 import com.tesis.u.firebase.FirebaseConfig;
 import com.tesis.u.service.NotaTerapiaService;
@@ -28,6 +31,8 @@ public class NotaTerapiaServiceImpl implements NotaTerapiaService{
 	public List<NotaTerapiaDTO> list() {
 		List<NotaTerapiaDTO> response = new ArrayList();
 		NotaTerapiaDTO notaTerapia;
+		PacienteDTO paciente;
+		EnfermeraDTO enfermera;
 
 		ApiFuture<QuerySnapshot> querySnapshotApiFuture = getCollection().get();
 
@@ -35,7 +40,26 @@ public class NotaTerapiaServiceImpl implements NotaTerapiaService{
 			for (DocumentSnapshot doc : querySnapshotApiFuture.get().getDocuments()) {
 				notaTerapia = doc.toObject(NotaTerapiaDTO.class);
 				notaTerapia.setId(doc.getId());
+				
+				
+				DocumentReference datosPaciente = firebase.getFirestore().collection("Paciente") .document(notaTerapia.getIdPaciente());
+				DocumentReference datosEnfermera = firebase.getFirestore().collection("Enfermera").document(notaTerapia.getIdEnfermera());
+				
+				ApiFuture<DocumentSnapshot> future = datosPaciente.get();
+				DocumentSnapshot document = future.get();
+				paciente = document.toObject(PacienteDTO.class);
+				
+				ApiFuture<DocumentSnapshot> future2 = datosEnfermera.get();
+				DocumentSnapshot document2 = future2.get();
+				enfermera = document2.toObject(EnfermeraDTO.class);
+				
+								
+				notaTerapia.setNombrePacienteTerapia(paciente.getNombrePaciente());
+				notaTerapia.setApellidoPacienteTerapia(paciente.getApellidoPaciente());
+				notaTerapia.setNombreEnfermeraTerapia(enfermera.getNombre());
+				notaTerapia.setApellidoEnfermeraTerapia(enfermera.getApellido());
 				response.add(notaTerapia);
+				
 			}
 			return response;
 		} catch (Exception e) {

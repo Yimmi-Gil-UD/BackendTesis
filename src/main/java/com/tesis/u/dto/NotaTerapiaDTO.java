@@ -16,6 +16,10 @@ public class NotaTerapiaDTO {
 	private String observacion;
 	private String idTipoTerapia;
 	private String idEnfermera;
+	private String nombrePacienteTerapia;
+	private String apellidoPacienteTerapia;
+	private String nombreEnfermeraTerapia;
+	private String apellidoEnfermeraTerapia;
 	
 	
 	public String getId() {
@@ -90,6 +94,32 @@ public class NotaTerapiaDTO {
 	public void setIdEnfermera(String idEnfermera) {
 		this.idEnfermera = idEnfermera;
 	}
+	public String getNombrePacienteTerapia() {
+		return nombrePacienteTerapia;
+	}
+	public void setNombrePacienteTerapia(String nombrePacienteTerapia) {
+		this.nombrePacienteTerapia = nombrePacienteTerapia;
+	}
+	public String getApellidoPacienteTerapia() {
+		return apellidoPacienteTerapia;
+	}
+	public void setApellidoPacienteTerapia(String apellidoPacienteTerapia) {
+		this.apellidoPacienteTerapia = apellidoPacienteTerapia;
+	}
+	public String getNombreEnfermeraTerapia() {
+		return nombreEnfermeraTerapia;
+	}
+	public void setNombreEnfermeraTerapia(String nombreEnfermeraTerapia) {
+		this.nombreEnfermeraTerapia = nombreEnfermeraTerapia;
+	}
+	public String getApellidoEnfermeraTerapia() {
+		return apellidoEnfermeraTerapia;
+	}
+	public void setApellidoEnfermeraTerapia(String apellidoEnfermeraTerapia) {
+		this.apellidoEnfermeraTerapia = apellidoEnfermeraTerapia;
+	}
+	
+	
 	
 	
 

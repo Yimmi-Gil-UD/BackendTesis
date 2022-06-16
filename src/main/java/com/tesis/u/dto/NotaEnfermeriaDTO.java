@@ -20,6 +20,10 @@ public class NotaEnfermeriaDTO {
 	private int saturacion;
 	private int glucometria;
 	private String idEnfermera;
+	private String nombrePaciente;
+	private String apellidoPaciente;
+	private String nombreEnfermera;
+	private String apellidoEnfermera;
 	
 	
 	public String getId() {
@@ -117,6 +121,30 @@ public class NotaEnfermeriaDTO {
 	}
 	public void setIdEnfermera(String idEnfermera) {
 		this.idEnfermera = idEnfermera;
+	}
+	public String getNombrePaciente() {
+		return nombrePaciente;
+	}
+	public void setNombrePaciente(String nombrePaciente) {
+		this.nombrePaciente = nombrePaciente;
+	}
+	public String getApellidoPaciente() {
+		return apellidoPaciente;
+	}
+	public void setApellidoPaciente(String apellidoPaciente) {
+		this.apellidoPaciente = apellidoPaciente;
+	}
+	public String getNombreEnfermera() {
+		return nombreEnfermera;
+	}
+	public void setNombreEnfermera(String nombreEnfermera) {
+		this.nombreEnfermera = nombreEnfermera;
+	}
+	public String getApellidoEnfermera() {
+		return apellidoEnfermera;
+	}
+	public void setApellidoEnfermera(String apellidoEnfermera) {
+		this.apellidoEnfermera = apellidoEnfermera;
 	}
 	
 	

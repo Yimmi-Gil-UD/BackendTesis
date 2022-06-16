@@ -10,10 +10,15 @@ import org.springframework.stereotype.Service;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
+import com.tesis.u.dto.EnfermeraDTO;
 import com.tesis.u.dto.NotaEnfermeriaDTO;
+import com.tesis.u.dto.PacienteDTO;
 import com.tesis.u.entity.NotaEnfermeria;
 import com.tesis.u.firebase.FirebaseConfig;
 import com.tesis.u.service.NotaEnfermeriaService;
@@ -28,13 +33,36 @@ public class NotaEnfermeriaServiceImpl implements NotaEnfermeriaService{
 	public List<NotaEnfermeriaDTO> list() {
 		List<NotaEnfermeriaDTO> response = new ArrayList();
 		NotaEnfermeriaDTO nota;
+		PacienteDTO paciente;
+		EnfermeraDTO enfermera;
 
 		ApiFuture<QuerySnapshot> querySnapshotApiFuture = getCollection().get();
+		
+		
 
 		try {
 			for (DocumentSnapshot doc : querySnapshotApiFuture.get().getDocuments()) {
 				nota = doc.toObject(NotaEnfermeriaDTO.class);
 				nota.setId(doc.getId());
+						
+			
+				DocumentReference datosPaciente = firebase.getFirestore().collection("Paciente") .document(nota.getIdPaciente());
+				DocumentReference datosEnfermera = firebase.getFirestore().collection("Enfermera").document(nota.getIdEnfermera());
+				
+				ApiFuture<DocumentSnapshot> future = datosPaciente.get();
+				DocumentSnapshot document = future.get();
+				paciente = document.toObject(PacienteDTO.class);
+				
+				ApiFuture<DocumentSnapshot> future2 = datosEnfermera.get();
+				DocumentSnapshot document2 = future2.get();
+				enfermera = document2.toObject(EnfermeraDTO.class);
+				
+				 
+							
+				nota.setNombrePaciente(paciente.getNombrePaciente());
+				nota.setApellidoPaciente(paciente.getApellidoPaciente());
+				nota.setNombreEnfermera(enfermera.getNombre());
+				nota.setApellidoEnfermera(enfermera.getApellido());
 				response.add(nota);
 			}
 			return response;
@@ -96,6 +124,7 @@ public class NotaEnfermeriaServiceImpl implements NotaEnfermeriaService{
 		return firebase.getFirestore().collection("NotaEnfermeria");
 	}
 	
+		
 	private Map<String, Object> getDocData(NotaEnfermeria nota) {
 		Map<String, Object> docData = new HashMap<>();
 		docData.put("idPaciente", nota.getIdPaciente() );
@@ -115,5 +144,6 @@ public class NotaEnfermeriaServiceImpl implements NotaEnfermeriaService{
 		docData.put("idEnfermera", nota.getIdEnfermera());
 		return docData;
 	}
-
+	
+	
 }
