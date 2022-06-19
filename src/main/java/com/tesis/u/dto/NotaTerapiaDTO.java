@@ -18,8 +18,12 @@ public class NotaTerapiaDTO {
 	private String idEnfermera;
 	private String nombrePacienteTerapia;
 	private String apellidoPacienteTerapia;
+	private long documentoPaciente;
+	private String tipoTerapia;
 	private String nombreEnfermeraTerapia;
 	private String apellidoEnfermeraTerapia;
+	private long documentoEnfermera;
+	
 	
 	
 	public String getId() {
@@ -106,6 +110,19 @@ public class NotaTerapiaDTO {
 	public void setApellidoPacienteTerapia(String apellidoPacienteTerapia) {
 		this.apellidoPacienteTerapia = apellidoPacienteTerapia;
 	}
+	
+	public long getDocumentoPaciente() {
+		return documentoPaciente;
+	}
+	public void setDocumentoPaciente(long documentoPaciente) {
+		this.documentoPaciente = documentoPaciente;
+	}
+	public String getTipoTerapia() {
+		return tipoTerapia;
+	}
+	public void setTipoTerapia(String tipoTerapia) {
+		this.tipoTerapia = tipoTerapia;
+	}
 	public String getNombreEnfermeraTerapia() {
 		return nombreEnfermeraTerapia;
 	}
@@ -117,6 +134,12 @@ public class NotaTerapiaDTO {
 	}
 	public void setApellidoEnfermeraTerapia(String apellidoEnfermeraTerapia) {
 		this.apellidoEnfermeraTerapia = apellidoEnfermeraTerapia;
+	}
+	public long getDocumentoEnfermera() {
+		return documentoEnfermera;
+	}
+	public void setDocumentoEnfermera(long documentoEnfermera) {
+		this.documentoEnfermera = documentoEnfermera;
 	}
 	
 	

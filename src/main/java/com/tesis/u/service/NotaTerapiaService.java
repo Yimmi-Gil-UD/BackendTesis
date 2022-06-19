@@ -9,6 +9,7 @@ import com.tesis.u.entity.NotaTerapia;
 public interface NotaTerapiaService {
 
 	List<NotaTerapiaDTO> list();
+	List<NotaTerapiaDTO> detail(String id);
 	Boolean save(NotaTerapia notaTerapia);
 	Boolean update(String id, NotaTerapia notaTerapia);
 	Boolean delete(String id);

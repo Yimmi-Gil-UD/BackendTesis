@@ -30,6 +30,12 @@ public class PacienteController {
 		return new ResponseEntity(pacienteService.list(), HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/detail/{id}")
+	public ResponseEntity detail(@PathVariable(value = "id") String id) {
+		return new ResponseEntity(pacienteService.detail(id), HttpStatus.OK);
+	}
+	
+	
 	@PostMapping(value = "/save")
 	public ResponseEntity save(@RequestBody Paciente Paciente) {
 		return new ResponseEntity(pacienteService.save(Paciente),HttpStatus.OK);

@@ -9,6 +9,7 @@ import com.tesis.u.entity.NotaEnfermeria;
 public interface NotaEnfermeriaService {
 
 	List<NotaEnfermeriaDTO> list();
+	List<NotaEnfermeriaDTO> detail(String id);
 	Boolean save(NotaEnfermeria nota);
 	Boolean update(String id, NotaEnfermeria nota);
 	Boolean delete(String id);

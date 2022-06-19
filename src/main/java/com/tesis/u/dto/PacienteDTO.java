@@ -15,7 +15,10 @@ public class PacienteDTO {
 	private String idGenero;
 	private String idCategoriaDiscapacidad;
 	private String idGrupoSanguineo;
-	private String idFundacion;
+	private String nombreGenero;
+	private String nombreCategoria;
+	private String nombreGrupo;
+	private String tipoDocumento;
 	
 	
 	public String getId() {
@@ -84,12 +87,31 @@ public class PacienteDTO {
 	public void setIdGrupoSanguineo(String idGrupoSanguineo) {
 		this.idGrupoSanguineo = idGrupoSanguineo;
 	}
-	public String getIdFundacion() {
-		return idFundacion;
+	public String getNombreGenero() {
+		return nombreGenero;
 	}
-	public void setIdFundacion(String idFundacion) {
-		this.idFundacion = idFundacion;
+	public void setNombreGenero(String nombreGenero) {
+		this.nombreGenero = nombreGenero;
 	}
+	public String getNombreCategoria() {
+		return nombreCategoria;
+	}
+	public void setNombreCategoria(String nombreCategoria) {
+		this.nombreCategoria = nombreCategoria;
+	}
+	public String getNombreGrupo() {
+		return nombreGrupo;
+	}
+	public void setNombreGrupo(String nombreGrupo) {
+		this.nombreGrupo = nombreGrupo;
+	}
+	public String getTipoDocumento() {
+		return tipoDocumento;
+	}
+	public void setTipoDocumento(String tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
+	}
+	
 	
 	
 	

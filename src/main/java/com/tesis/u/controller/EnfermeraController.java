@@ -29,6 +29,11 @@ public class EnfermeraController {
 		return new ResponseEntity(enfermeraService.list(), HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/detail/{id}")
+	public ResponseEntity detail(@PathVariable(value = "id") String id) {
+		return new ResponseEntity(enfermeraService.detail(id), HttpStatus.OK);
+	}
+	
 	@PostMapping(value = "/save")
 	public ResponseEntity save(@RequestBody Enfermera enfermera) {
 		return new ResponseEntity(enfermeraService.save(enfermera),HttpStatus.OK);

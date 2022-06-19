@@ -22,8 +22,10 @@ public class NotaEnfermeriaDTO {
 	private String idEnfermera;
 	private String nombrePaciente;
 	private String apellidoPaciente;
+	private long documentoPaciente;
 	private String nombreEnfermera;
 	private String apellidoEnfermera;
+	private long documentoEnfermera;
 	
 	
 	public String getId() {
@@ -134,6 +136,14 @@ public class NotaEnfermeriaDTO {
 	public void setApellidoPaciente(String apellidoPaciente) {
 		this.apellidoPaciente = apellidoPaciente;
 	}
+	
+	public long getDocumentoPaciente() {
+		return documentoPaciente;
+	}
+	
+	public void setDocumentoPaciente(long documentoPaciente) {
+		this.documentoPaciente = documentoPaciente;
+	}
 	public String getNombreEnfermera() {
 		return nombreEnfermera;
 	}
@@ -146,6 +156,13 @@ public class NotaEnfermeriaDTO {
 	public void setApellidoEnfermera(String apellidoEnfermera) {
 		this.apellidoEnfermera = apellidoEnfermera;
 	}
+	public long getDocumentoEnfermera() {
+		return documentoEnfermera;
+	}
+	public void setDocumentoEnfermera(long documentoEnfermera) {
+		this.documentoEnfermera = documentoEnfermera;
+	}
+	
 	
 	
 

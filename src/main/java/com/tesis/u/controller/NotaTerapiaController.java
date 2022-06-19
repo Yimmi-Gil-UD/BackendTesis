@@ -30,6 +30,11 @@ public class NotaTerapiaController {
 		return new ResponseEntity(notaTerapiaService.list(), HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/detail/{id}")
+	public ResponseEntity detail(@PathVariable(value = "id") String id) {
+		return new ResponseEntity(notaTerapiaService.detail(id), HttpStatus.OK);
+	}
+	
 	@PostMapping(value = "/save")
 	public ResponseEntity save(@RequestBody NotaTerapia notaTerapia) {
 		return new ResponseEntity(notaTerapiaService.save(notaTerapia),HttpStatus.OK);

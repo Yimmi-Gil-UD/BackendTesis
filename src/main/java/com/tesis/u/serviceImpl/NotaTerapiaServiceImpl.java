@@ -15,8 +15,12 @@ import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
 import com.tesis.u.dto.EnfermeraDTO;
+import com.tesis.u.dto.GeneroDTO;
 import com.tesis.u.dto.NotaTerapiaDTO;
 import com.tesis.u.dto.PacienteDTO;
+import com.tesis.u.dto.RolDTO;
+import com.tesis.u.dto.TipoDocumentoIdDTO;
+import com.tesis.u.dto.TipoTerapiaDTO;
 import com.tesis.u.entity.NotaTerapia;
 import com.tesis.u.firebase.FirebaseConfig;
 import com.tesis.u.service.NotaTerapiaService;
@@ -66,6 +70,60 @@ public class NotaTerapiaServiceImpl implements NotaTerapiaService{
 			// TODO Auto-generated catch block
 			return null;
 		}
+	}
+	
+	
+	@Override
+	public List<NotaTerapiaDTO> detail(String id) {
+		
+		List<NotaTerapiaDTO> response = new ArrayList();
+		NotaTerapiaDTO notaTerapia;
+		PacienteDTO paciente;
+		TipoTerapiaDTO tipo;
+		EnfermeraDTO enfermera;
+		
+		try {
+			DocumentReference datosTerapia = firebase.getFirestore().collection("NotaTerapia") .document(id);
+			ApiFuture<DocumentSnapshot> future = datosTerapia.get();
+			DocumentSnapshot document = future.get();
+			notaTerapia = document.toObject(NotaTerapiaDTO.class);
+			notaTerapia.setId(document.getId());
+			
+			DocumentReference datosPaciente = firebase.getFirestore().collection("Paciente") .document(notaTerapia.getIdPaciente());
+			DocumentReference datosTipoTerapia = firebase.getFirestore().collection("TipoTerapia").document(notaTerapia.getIdTipoTerapia());
+			DocumentReference datosEnfermera = firebase.getFirestore().collection("Enfermera").document(notaTerapia.getIdEnfermera());
+			
+						
+			ApiFuture<DocumentSnapshot> futurePaciente = datosPaciente.get();
+			DocumentSnapshot documentPaciente = futurePaciente.get();
+			paciente = documentPaciente.toObject(PacienteDTO.class);
+			
+			ApiFuture<DocumentSnapshot> futureTipo= datosTipoTerapia.get();
+			DocumentSnapshot documentTipo = futureTipo.get();
+			tipo = documentTipo.toObject(TipoTerapiaDTO.class);
+			
+			ApiFuture<DocumentSnapshot> futureEnfermera = datosEnfermera.get();
+			DocumentSnapshot documentEnfermera = futureEnfermera.get();
+			enfermera = documentEnfermera.toObject(EnfermeraDTO.class);
+			
+			
+			notaTerapia.setNombrePacienteTerapia(paciente.getNombrePaciente());
+			notaTerapia.setApellidoPacienteTerapia(paciente.getApellidoPaciente());
+			notaTerapia.setDocumentoPaciente(paciente.getNumeroIdentificacionP());
+			notaTerapia.setTipoTerapia(tipo.getNombreTerapia());
+			notaTerapia.setNombreEnfermeraTerapia(enfermera.getNombre());
+			notaTerapia.setApellidoEnfermeraTerapia(enfermera.getApellido());
+			notaTerapia.setDocumentoEnfermera(enfermera.getNumeroIdentificacion());
+			
+			
+			response.add(notaTerapia);
+			
+			
+				return response;
+			} catch (Exception e) {
+				return null;
+			}
+		
 	}
 
 	@Override
@@ -135,5 +193,7 @@ public class NotaTerapiaServiceImpl implements NotaTerapiaService{
 		docData.put("idEnfermera", notaTerapia.getIdEnfermera());
 		return docData;
 	}
+
+
 
 }

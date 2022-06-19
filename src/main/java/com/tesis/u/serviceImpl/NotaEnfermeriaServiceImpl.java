@@ -18,7 +18,9 @@ import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
 import com.tesis.u.dto.EnfermeraDTO;
 import com.tesis.u.dto.NotaEnfermeriaDTO;
+import com.tesis.u.dto.NotaTerapiaDTO;
 import com.tesis.u.dto.PacienteDTO;
+import com.tesis.u.dto.TipoTerapiaDTO;
 import com.tesis.u.entity.NotaEnfermeria;
 import com.tesis.u.firebase.FirebaseConfig;
 import com.tesis.u.service.NotaEnfermeriaService;
@@ -71,6 +73,50 @@ public class NotaEnfermeriaServiceImpl implements NotaEnfermeriaService{
 			return null;
 		}
 	}
+	
+	@Override
+	public List<NotaEnfermeriaDTO> detail(String id) {
+		List<NotaEnfermeriaDTO> response = new ArrayList();
+		NotaEnfermeriaDTO nota;
+		PacienteDTO paciente;
+		EnfermeraDTO enfermera;
+		
+		try {
+			DocumentReference datosNotaEnfermeria = firebase.getFirestore().collection("NotaEnfermeria") .document(id);
+			ApiFuture<DocumentSnapshot> future = datosNotaEnfermeria.get();
+			DocumentSnapshot document = future.get();
+			nota = document.toObject(NotaEnfermeriaDTO.class);
+			nota.setId(document.getId());
+			
+			DocumentReference datosPaciente = firebase.getFirestore().collection("Paciente") .document(nota.getIdPaciente());
+			DocumentReference datosEnfermera = firebase.getFirestore().collection("Enfermera").document(nota.getIdEnfermera());
+			
+						
+			ApiFuture<DocumentSnapshot> futurePaciente = datosPaciente.get();
+			DocumentSnapshot documentPaciente = futurePaciente.get();
+			paciente = documentPaciente.toObject(PacienteDTO.class);
+			
+			ApiFuture<DocumentSnapshot> futureEnfermera = datosEnfermera.get();
+			DocumentSnapshot documentEnfermera = futureEnfermera.get();
+			enfermera = documentEnfermera.toObject(EnfermeraDTO.class);
+			
+			
+			nota.setNombrePaciente(paciente.getNombrePaciente());
+			nota.setApellidoPaciente(paciente.getApellidoPaciente());
+			nota.setDocumentoPaciente(paciente.getNumeroIdentificacionP());
+			nota.setNombreEnfermera(enfermera.getNombre());
+			nota.setApellidoEnfermera(enfermera.getApellido());
+			nota.setDocumentoEnfermera(enfermera.getNumeroIdentificacion());
+			
+			response.add(nota);
+			
+				return response;
+			} catch (Exception e) {
+				return null;
+			}
+		
+	}
+	
 
 	@Override
 	public Boolean save(NotaEnfermeria nota) {
@@ -144,6 +190,8 @@ public class NotaEnfermeriaServiceImpl implements NotaEnfermeriaService{
 		docData.put("idEnfermera", nota.getIdEnfermera());
 		return docData;
 	}
+
+
 	
 	
 }

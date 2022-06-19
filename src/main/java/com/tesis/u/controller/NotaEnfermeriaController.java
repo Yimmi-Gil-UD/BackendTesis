@@ -29,6 +29,11 @@ public class NotaEnfermeriaController {
 		return new ResponseEntity(notaEnfermeriaService.list(), HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/detail/{id}")
+	public ResponseEntity detail(@PathVariable(value = "id") String id) {
+		return new ResponseEntity(notaEnfermeriaService.detail(id), HttpStatus.OK);
+	}
+	
 	@PostMapping(value = "/save")
 	public ResponseEntity save(@RequestBody NotaEnfermeria notaEnfermeria) {
 		return new ResponseEntity(notaEnfermeriaService.save(notaEnfermeria),HttpStatus.OK);

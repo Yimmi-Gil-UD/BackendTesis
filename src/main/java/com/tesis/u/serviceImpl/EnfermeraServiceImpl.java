@@ -10,10 +10,18 @@ import org.springframework.stereotype.Service;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
+import com.tesis.u.dto.CategoriaDiscapacidadDTO;
 import com.tesis.u.dto.EnfermeraDTO;
+import com.tesis.u.dto.FundacionDTO;
+import com.tesis.u.dto.GeneroDTO;
+import com.tesis.u.dto.GrupoSanguineoDTO;
+import com.tesis.u.dto.PacienteDTO;
+import com.tesis.u.dto.RolDTO;
+import com.tesis.u.dto.TipoDocumentoIdDTO;
 import com.tesis.u.entity.Enfermera;
 import com.tesis.u.firebase.FirebaseConfig;
 import com.tesis.u.service.EnfermeraService;
@@ -43,6 +51,58 @@ public class EnfermeraServiceImpl implements EnfermeraService{
 			// TODO Auto-generated catch block
 			return null;
 		}
+	}
+	
+	
+	@Override
+	public List<EnfermeraDTO> detail(String id) {
+		List<EnfermeraDTO> response = new ArrayList();
+		EnfermeraDTO enfermera;
+		TipoDocumentoIdDTO documento;
+		GeneroDTO genero;
+		RolDTO rol;
+		
+		
+		try {
+			DocumentReference datosEnfermera = firebase.getFirestore().collection("Enfermera") .document(id);
+			ApiFuture<DocumentSnapshot> future = datosEnfermera.get();
+			DocumentSnapshot document = future.get();
+			enfermera = document.toObject(EnfermeraDTO.class);
+			enfermera.setId(document.getId());
+			
+			DocumentReference datosDocumento = firebase.getFirestore().collection("TipoDocumentoId") .document(enfermera.getIdTipoDocumentoE());
+			DocumentReference datosGenero = firebase.getFirestore().collection("Genero").document(enfermera.getIdGenero());
+			DocumentReference datosRol = firebase.getFirestore().collection("Rol").document(enfermera.getIdRol());
+			
+			
+			
+			ApiFuture<DocumentSnapshot> futureDocumento = datosDocumento.get();
+			DocumentSnapshot documentDocumento = futureDocumento.get();
+			documento = documentDocumento.toObject(TipoDocumentoIdDTO.class);
+			
+			ApiFuture<DocumentSnapshot> futureGenero = datosGenero.get();
+			DocumentSnapshot documentGenero = futureGenero.get();
+			genero = documentGenero.toObject(GeneroDTO.class);
+			
+			ApiFuture<DocumentSnapshot> futureRol = datosRol.get();
+			DocumentSnapshot documentRol = futureRol.get();
+			rol = documentRol.toObject(RolDTO.class);
+			
+			
+			enfermera.setTipoDocumento(documento.getDescripcionDocumento());
+			enfermera.setDescripcionGenero(genero.getNombreGenero());
+			enfermera.setDescripcionRol(rol.getNombreRol());
+			
+			
+			response.add(enfermera);
+			
+			
+				return response;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				return null;
+			}
+		
 	}
 
 	@Override
@@ -109,5 +169,7 @@ public class EnfermeraServiceImpl implements EnfermeraService{
 		docData.put("idRol", enfermera.getIdRol());
 		return docData;
 	}
+
+
 
 }

@@ -14,7 +14,6 @@ public class Paciente {
 	private String idGenero;
 	private String idCategoriaDiscapacidad;
 	private String idGrupoSanguineo;
-	private String idFundacion;
 	
 	
 	public String getNombrePaciente() {
@@ -76,12 +75,6 @@ public class Paciente {
 	}
 	public void setIdGrupoSanguineo(String idGrupoSanguineo) {
 		this.idGrupoSanguineo = idGrupoSanguineo;
-	}
-	public String getIdFundacion() {
-		return idFundacion;
-	}
-	public void setIdFundacion(String idFundacion) {
-		this.idFundacion = idFundacion;
 	}
 	
 
