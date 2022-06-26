@@ -15,6 +15,7 @@ import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
 import com.tesis.u.dto.CategoriaDiscapacidadDTO;
+import com.tesis.u.dto.EstadoDTO;
 import com.tesis.u.dto.FundacionDTO;
 import com.tesis.u.dto.GeneroDTO;
 import com.tesis.u.dto.GrupoSanguineoDTO;
@@ -34,10 +35,7 @@ public class PacienteServiceImpl implements PacienteService{
 	public List<PacienteDTO> list() {
 		List<PacienteDTO> response = new ArrayList();
 		PacienteDTO paciente;
-		CategoriaDiscapacidadDTO categoria;
-		GrupoSanguineoDTO grupo;
-		TipoDocumentoIdDTO tipo;
-		GeneroDTO genero;
+		EstadoDTO estado;
 
 		ApiFuture<QuerySnapshot> querySnapshotApiFuture = getCollection().get();
 
@@ -46,34 +44,13 @@ public class PacienteServiceImpl implements PacienteService{
 				paciente = doc.toObject(PacienteDTO.class);
 				paciente.setId(doc.getId());
 				
-				DocumentReference datosCategoria = firebase.getFirestore().collection("CategoriaDiscapacidad") .document(paciente.getIdCategoriaDiscapacidad());
-				DocumentReference datosGrupo = firebase.getFirestore().collection("GrupoSanguineo").document(paciente.getIdGrupoSanguineo());
-				DocumentReference datosDocumento = firebase.getFirestore().collection("TipoDocumentoId").document(paciente.getIdTipoDocumentoP());
-				DocumentReference GeneroDocumento = firebase.getFirestore().collection("Genero").document(paciente.getIdGenero());
+				DocumentReference datosEstado = firebase.getFirestore().collection("Estado").document(paciente.getIdEstadoPaciente());
 				
+				ApiFuture<DocumentSnapshot> future2 = datosEstado.get();
+				DocumentSnapshot document2 = future2.get();
+				estado = document2.toObject(EstadoDTO.class);
 				
-				
-				ApiFuture<DocumentSnapshot> futureCategoria = datosCategoria.get();
-				DocumentSnapshot documentCategoria = futureCategoria.get();
-				categoria = documentCategoria.toObject(CategoriaDiscapacidadDTO.class);
-				
-				ApiFuture<DocumentSnapshot> futureGrupo = datosGrupo.get();
-				DocumentSnapshot documentGrupo = futureGrupo.get();
-				grupo = documentGrupo.toObject(GrupoSanguineoDTO.class);
-				
-				ApiFuture<DocumentSnapshot> futureDocumento = datosDocumento.get();
-				DocumentSnapshot documentDocumento = futureDocumento.get();
-				tipo = documentDocumento.toObject(TipoDocumentoIdDTO.class);
-				
-				ApiFuture<DocumentSnapshot> futureGenero = GeneroDocumento.get();
-				DocumentSnapshot documentGenero = futureGenero.get();
-				genero = documentGenero.toObject(GeneroDTO.class);
-				
-				paciente.setNombreGenero(genero.getNombreGenero());
-				paciente.setNombreCategoria(categoria.getNombreDiscapacidad());
-				paciente.setNombreGrupo(grupo.getNombreGrupo());
-				paciente.setTipoDocumento(tipo.getDescripcionDocumento());
-				
+				paciente.setDescripcionEstadoPaciente(estado.getDescripcionEstado());
 				
 				response.add(paciente);
 			}
@@ -84,6 +61,7 @@ public class PacienteServiceImpl implements PacienteService{
 		}
 	}
 	
+	
 	@Override
 	public List<PacienteDTO> detail(String id) {
 		List<PacienteDTO> response = new ArrayList();
@@ -92,6 +70,7 @@ public class PacienteServiceImpl implements PacienteService{
 		GrupoSanguineoDTO grupo;
 		TipoDocumentoIdDTO tipo;
 		GeneroDTO genero;
+		EstadoDTO estado;
 		
 		try {
 		DocumentReference datosPaciente = firebase.getFirestore().collection("Paciente") .document(id);
@@ -104,7 +83,7 @@ public class PacienteServiceImpl implements PacienteService{
 		DocumentReference datosGrupo = firebase.getFirestore().collection("GrupoSanguineo").document(paciente.getIdGrupoSanguineo());
 		DocumentReference datosDocumento = firebase.getFirestore().collection("TipoDocumentoId").document(paciente.getIdTipoDocumentoP());
 		DocumentReference GeneroDocumento = firebase.getFirestore().collection("Genero").document(paciente.getIdGenero());
-		
+		DocumentReference EstadoDocumento = firebase.getFirestore().collection("Estado").document(paciente.getIdEstadoPaciente());
 		
 		
 		ApiFuture<DocumentSnapshot> futureCategoria = datosCategoria.get();
@@ -123,10 +102,15 @@ public class PacienteServiceImpl implements PacienteService{
 		DocumentSnapshot documentGenero = futureGenero.get();
 		genero = documentGenero.toObject(GeneroDTO.class);
 		
+		ApiFuture<DocumentSnapshot> futureEstado = EstadoDocumento.get();
+		DocumentSnapshot documentEstado = futureEstado.get();
+		estado = documentEstado.toObject(EstadoDTO.class);
+		
 		paciente.setNombreGenero(genero.getNombreGenero());
 		paciente.setNombreCategoria(categoria.getNombreDiscapacidad());
 		paciente.setNombreGrupo(grupo.getNombreGrupo());
 		paciente.setTipoDocumento(tipo.getDescripcionDocumento());
+		paciente.setDescripcionEstadoPaciente(estado.getDescripcionEstado());
 		
 		response.add(paciente);
 		
@@ -203,6 +187,7 @@ public class PacienteServiceImpl implements PacienteService{
 		docData.put("idGenero", paciente.getIdGenero());
 		docData.put("idCategoriaDiscapacidad", paciente.getIdCategoriaDiscapacidad());
 		docData.put("idGrupoSanguineo", paciente.getIdGrupoSanguineo());
+		docData.put("idEstadoPaciente", paciente.getIdEstadoPaciente());
 		return docData;
 	}
 

@@ -14,6 +14,8 @@ public class EnfermeraDTO {
 	private String tipoDocumento;
 	private String descripcionGenero;
 	private String descripcionRol;
+	private String idEstadoEnfermera;
+	private String descripcionEstadoEnfermera;
 	
 	
 	public String getId() {
@@ -88,6 +90,20 @@ public class EnfermeraDTO {
 	public void setDescripcionRol(String descripcionRol) {
 		this.descripcionRol = descripcionRol;
 	}
+	public String getIdEstadoEnfermera() {
+		return idEstadoEnfermera;
+	}
+	public void setIdEstadoEnfermera(String idEstadoEnfermera) {
+		this.idEstadoEnfermera = idEstadoEnfermera;
+	}
+	public String getDescripcionEstadoEnfermera() {
+		return descripcionEstadoEnfermera;
+	}
+	public void setDescripcionEstadoEnfermera(String descripcionEstadoEnfermera) {
+		this.descripcionEstadoEnfermera = descripcionEstadoEnfermera;
+	}
+	
+	
 	
 	
 	

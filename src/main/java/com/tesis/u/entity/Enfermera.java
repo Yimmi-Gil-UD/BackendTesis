@@ -10,6 +10,7 @@ public class Enfermera {
 	private String password;
 	private String idGenero;
 	private String idRol;
+	private String idEstadoEnfermera;
 	
 	
 	public String getNombre() {
@@ -60,6 +61,13 @@ public class Enfermera {
 	public void setIdRol(String idRol) {
 		this.idRol = idRol;
 	}
+	public String getIdEstadoEnfermera() {
+		return idEstadoEnfermera;
+	}
+	public void setIdEstadoEnfermera(String idEstadoEnfermera) {
+		this.idEstadoEnfermera = idEstadoEnfermera;
+	}
+	
 	
 	
 	

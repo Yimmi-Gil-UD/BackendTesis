@@ -19,6 +19,8 @@ public class PacienteDTO {
 	private String nombreCategoria;
 	private String nombreGrupo;
 	private String tipoDocumento;
+	private String idEstadoPaciente;
+	private String descripcionEstadoPaciente;
 	
 	
 	public String getId() {
@@ -111,6 +113,22 @@ public class PacienteDTO {
 	public void setTipoDocumento(String tipoDocumento) {
 		this.tipoDocumento = tipoDocumento;
 	}
+	public String getIdEstadoPaciente() {
+		return idEstadoPaciente;
+	}
+	public void setIdEstadoPaciente(String idEstadoPaciente) {
+		this.idEstadoPaciente = idEstadoPaciente;
+	}
+	public String getDescripcionEstadoPaciente() {
+		return descripcionEstadoPaciente;
+	}
+	public void setDescripcionEstadoPaciente(String descripcionEstadoPaciente) {
+		this.descripcionEstadoPaciente = descripcionEstadoPaciente;
+	}
+	
+	
+	
+	
 	
 	
 	

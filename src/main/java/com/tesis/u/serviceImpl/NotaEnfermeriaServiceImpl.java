@@ -63,8 +63,10 @@ public class NotaEnfermeriaServiceImpl implements NotaEnfermeriaService{
 							
 				nota.setNombrePaciente(paciente.getNombrePaciente());
 				nota.setApellidoPaciente(paciente.getApellidoPaciente());
+				nota.setDocumentoPaciente(paciente.getNumeroIdentificacionP());
 				nota.setNombreEnfermera(enfermera.getNombre());
 				nota.setApellidoEnfermera(enfermera.getApellido());
+				nota.setDocumentoEnfermera(enfermera.getNumeroIdentificacion());
 				response.add(nota);
 			}
 			return response;

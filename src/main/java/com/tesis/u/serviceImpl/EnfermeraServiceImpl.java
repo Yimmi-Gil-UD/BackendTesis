@@ -16,6 +16,7 @@ import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
 import com.tesis.u.dto.CategoriaDiscapacidadDTO;
 import com.tesis.u.dto.EnfermeraDTO;
+import com.tesis.u.dto.EstadoDTO;
 import com.tesis.u.dto.FundacionDTO;
 import com.tesis.u.dto.GeneroDTO;
 import com.tesis.u.dto.GrupoSanguineoDTO;
@@ -37,6 +38,7 @@ public class EnfermeraServiceImpl implements EnfermeraService{
 	public List<EnfermeraDTO> list() {
 		List<EnfermeraDTO> response = new ArrayList();
 		EnfermeraDTO enfermera;
+		EstadoDTO estado;
 
 		ApiFuture<QuerySnapshot> querySnapshotApiFuture = getCollection().get();
 
@@ -44,6 +46,15 @@ public class EnfermeraServiceImpl implements EnfermeraService{
 			for (DocumentSnapshot doc : querySnapshotApiFuture.get().getDocuments()) {
 				enfermera = doc.toObject(EnfermeraDTO.class);
 				enfermera.setId(doc.getId());
+				
+				DocumentReference datosEstado = firebase.getFirestore().collection("Estado").document(enfermera.getIdEstadoEnfermera());
+				
+				ApiFuture<DocumentSnapshot> future2 = datosEstado.get();
+				DocumentSnapshot document2 = future2.get();
+				estado = document2.toObject(EstadoDTO.class);
+				
+				enfermera.setDescripcionEstadoEnfermera(estado.getDescripcionEstado());
+				
 				response.add(enfermera);
 			}
 			return response;
@@ -61,6 +72,9 @@ public class EnfermeraServiceImpl implements EnfermeraService{
 		TipoDocumentoIdDTO documento;
 		GeneroDTO genero;
 		RolDTO rol;
+		EstadoDTO estado;
+		
+		
 		
 		
 		try {
@@ -73,6 +87,7 @@ public class EnfermeraServiceImpl implements EnfermeraService{
 			DocumentReference datosDocumento = firebase.getFirestore().collection("TipoDocumentoId") .document(enfermera.getIdTipoDocumentoE());
 			DocumentReference datosGenero = firebase.getFirestore().collection("Genero").document(enfermera.getIdGenero());
 			DocumentReference datosRol = firebase.getFirestore().collection("Rol").document(enfermera.getIdRol());
+			DocumentReference datosEstado = firebase.getFirestore().collection("Estado").document(enfermera.getIdEstadoEnfermera());
 			
 			
 			
@@ -88,11 +103,15 @@ public class EnfermeraServiceImpl implements EnfermeraService{
 			DocumentSnapshot documentRol = futureRol.get();
 			rol = documentRol.toObject(RolDTO.class);
 			
+			ApiFuture<DocumentSnapshot> futureEstado = datosEstado.get();
+			DocumentSnapshot documentEstado = futureEstado.get();
+			estado = documentEstado.toObject(EstadoDTO.class);
+			
 			
 			enfermera.setTipoDocumento(documento.getDescripcionDocumento());
 			enfermera.setDescripcionGenero(genero.getNombreGenero());
 			enfermera.setDescripcionRol(rol.getNombreRol());
-			
+			enfermera.setDescripcionEstadoEnfermera(estado.getDescripcionEstado());
 			
 			response.add(enfermera);
 			
@@ -167,6 +186,7 @@ public class EnfermeraServiceImpl implements EnfermeraService{
 		docData.put("password", enfermera.getPassword());
 		docData.put("idGenero", enfermera.getIdGenero());
 		docData.put("idRol", enfermera.getIdRol());
+		docData.put("idEstadoEnfermera", enfermera.getIdEstadoEnfermera());
 		return docData;
 	}
 

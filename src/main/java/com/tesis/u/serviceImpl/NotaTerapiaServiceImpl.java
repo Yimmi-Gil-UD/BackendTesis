@@ -60,8 +60,10 @@ public class NotaTerapiaServiceImpl implements NotaTerapiaService{
 								
 				notaTerapia.setNombrePacienteTerapia(paciente.getNombrePaciente());
 				notaTerapia.setApellidoPacienteTerapia(paciente.getApellidoPaciente());
+				notaTerapia.setDocumentoPaciente(paciente.getNumeroIdentificacionP());
 				notaTerapia.setNombreEnfermeraTerapia(enfermera.getNombre());
 				notaTerapia.setApellidoEnfermeraTerapia(enfermera.getApellido());
+				notaTerapia.setDocumentoEnfermera(enfermera.getNumeroIdentificacion());
 				response.add(notaTerapia);
 				
 			}
