@@ -36,6 +36,10 @@ public class PacienteServiceImpl implements PacienteService{
 		List<PacienteDTO> response = new ArrayList();
 		PacienteDTO paciente;
 		EstadoDTO estado;
+		GeneroDTO genero;
+		CategoriaDiscapacidadDTO categoriaDiscapacidad;
+		GrupoSanguineoDTO grupoSanguineo;
+		
 
 		ApiFuture<QuerySnapshot> querySnapshotApiFuture = getCollection().get();
 
@@ -45,13 +49,32 @@ public class PacienteServiceImpl implements PacienteService{
 				paciente.setId(doc.getId());
 				
 				DocumentReference datosEstado = firebase.getFirestore().collection("Estado").document(paciente.getIdEstadoPaciente());
+				DocumentReference datosGenero = firebase.getFirestore().collection("Genero").document(paciente.getIdGenero());
+				DocumentReference datosCategoriaDiscapacidad = firebase.getFirestore().collection("CategoriaDiscapacidad").document(paciente.getIdCategoriaDiscapacidad());
+				DocumentReference datosGrupoSanguineo = firebase.getFirestore().collection("GrupoSanguineo").document(paciente.getIdGrupoSanguineo());
 				
 				ApiFuture<DocumentSnapshot> future2 = datosEstado.get();
 				DocumentSnapshot document2 = future2.get();
 				estado = document2.toObject(EstadoDTO.class);
 				
-				paciente.setDescripcionEstadoPaciente(estado.getDescripcionEstado());
+				ApiFuture<DocumentSnapshot> futureGenero = datosGenero.get();
+				DocumentSnapshot documentGenero = futureGenero.get();
+				genero = documentGenero.toObject(GeneroDTO.class);
 				
+				ApiFuture<DocumentSnapshot> futureCategoriaDiscapacidad = datosCategoriaDiscapacidad.get();
+				DocumentSnapshot documentCategoriaDiscapacidad = futureCategoriaDiscapacidad.get();
+				categoriaDiscapacidad = documentCategoriaDiscapacidad.toObject(CategoriaDiscapacidadDTO.class);
+				
+				ApiFuture<DocumentSnapshot> futureGrupoSanguineo = datosGrupoSanguineo.get();
+				DocumentSnapshot documentGrupoSanguineo = futureGrupoSanguineo.get();
+				grupoSanguineo = documentGrupoSanguineo.toObject(GrupoSanguineoDTO.class);
+				
+								
+				paciente.setDescripcionEstadoPaciente(estado.getDescripcionEstado());
+				paciente.setNombreGenero(genero.getNombreGenero());
+				paciente.setNombreCategoria(categoriaDiscapacidad.getNombreDiscapacidad());
+				paciente.setNombreGrupo(grupoSanguineo.getNombreGrupo());
+								
 				response.add(paciente);
 			}
 			return response;

@@ -14,6 +14,7 @@ import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
+import com.tesis.u.MainSecurity;
 import com.tesis.u.dto.CategoriaDiscapacidadDTO;
 import com.tesis.u.dto.EnfermeraDTO;
 import com.tesis.u.dto.EstadoDTO;
@@ -33,6 +34,8 @@ public class EnfermeraServiceImpl implements EnfermeraService{
 	@Autowired
 	private FirebaseConfig firebase;
 	
+	//@Autowired
+	private MainSecurity security;
 	
 	@Override
 	public List<EnfermeraDTO> list() {
@@ -183,7 +186,9 @@ public class EnfermeraServiceImpl implements EnfermeraService{
 		docData.put("idTipoDocumentoE", enfermera.getIdTipoDocumentoE());
 		docData.put("numeroIdentificacion", enfermera.getNumeroIdentificacion());
 		docData.put("correo", enfermera.getCorreo());
-		docData.put("password", enfermera.getPassword());
+		//docData.put("password",passwordEncoder.encode(enfermera.getPassword()));
+		//docData.put("password",enfermera.getPassword());
+		docData.put("password",this.security.encrypt(enfermera.getPassword()));
 		docData.put("idGenero", enfermera.getIdGenero());
 		docData.put("idRol", enfermera.getIdRol());
 		docData.put("idEstadoEnfermera", enfermera.getIdEstadoEnfermera());

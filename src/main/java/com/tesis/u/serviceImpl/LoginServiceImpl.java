@@ -1,11 +1,13 @@
 package com.tesis.u.serviceImpl;
 
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,9 +22,11 @@ import com.tesis.u.dto.LoginDTO;
 import com.tesis.u.dto.LoginResponseDTO;
 import com.tesis.u.dto.RolDTO;
 import com.tesis.u.firebase.FirebaseConfig;
+import com.tesis.u.MainSecurity;
 import com.tesis.u.dto.EnfermeraDTO;
 import com.tesis.u.dto.EstadoDTO;
 import com.tesis.u.service.LoginService;
+
 
 
 @Service
@@ -30,7 +34,11 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Autowired
 	private FirebaseConfig firebase;
-
+	
+	//@Autowired
+	private MainSecurity security;
+	
+	
 	@Override
 	public LoginResponseDTO getByUser(LoginDTO loginDTO) throws InterruptedException, ExecutionException {
 		List<LoginResponseDTO> Listlogin = new ArrayList();
@@ -42,8 +50,6 @@ public class LoginServiceImpl implements LoginService {
 		DocumentSnapshot document = future.get();
 		EnfermeraDTO enfermera;
 		EstadoDTO estado;
-		
-		
 		
 		if (document.exists()) {
 			enfermera = document.toObject(EnfermeraDTO.class);
@@ -64,7 +70,11 @@ public class LoginServiceImpl implements LoginService {
 			}
 			else
 			{
-				if (enfermera.getCorreo().equals(loginDTO.getCorreo())  && loginDTO.getPassword().equals(enfermera.getPassword())) {
+				//if (enfermera.getCorreo().equals(loginDTO.getCorreo())  && loginDTO.getPassword().equals(enfermera.getPassword())) {
+				if(enfermera.getCorreo().equals(loginDTO.getCorreo())  && security.encrypt(loginDTO.getPassword()).equals(enfermera.getPassword()))
+				{
+								
+				
 					login.setId(enfermera.getId());
 					login.setCorreo(enfermera.getCorreo());
 					login.setRol(getByRol(enfermera.getIdRol()));
