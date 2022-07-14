@@ -9,6 +9,7 @@ import com.tesis.u.entity.TipoTerapia;
 public interface TipoTerapiaService {
 
 	List<TipoTerapiaDTO> list();
+	List<TipoTerapiaDTO> detail(String id);
 	Boolean save(TipoTerapia terapia);
 	Boolean update(String id, TipoTerapia terapia);
 	Boolean delete(String id);

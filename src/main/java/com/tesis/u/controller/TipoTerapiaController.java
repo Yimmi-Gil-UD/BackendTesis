@@ -29,6 +29,11 @@ public class TipoTerapiaController {
 		return new ResponseEntity(tipoTerapiaService.list(), HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/detail/{id}")
+	public ResponseEntity detail(@PathVariable(value = "id") String id) {
+		return new ResponseEntity(tipoTerapiaService.detail(id), HttpStatus.OK);
+	}
+	
 	@PostMapping(value = "/save")
 	public ResponseEntity save(@RequestBody TipoTerapia terapia) {
 		return new ResponseEntity(tipoTerapiaService.save(terapia),HttpStatus.OK);

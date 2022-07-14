@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
+import com.tesis.u.dto.NotaTerapiaDTO;
 import com.tesis.u.dto.TipoTerapiaDTO;
 import com.tesis.u.entity.TipoTerapia;
 import com.tesis.u.firebase.FirebaseConfig;
@@ -43,6 +45,31 @@ public class TipoTerapiaServiceImpl implements TipoTerapiaService{
 			return null;
 		}
 	}
+	
+	
+	@Override
+	public List<TipoTerapiaDTO> detail(String id) {
+		
+		List<TipoTerapiaDTO> response = new ArrayList();
+		TipoTerapiaDTO terapia;
+
+		ApiFuture<QuerySnapshot> querySnapshotApiFuture = getCollection().get();
+
+		try {
+			DocumentReference datosTerapia = firebase.getFirestore().collection("TipoTerapia") .document(id);
+			ApiFuture<DocumentSnapshot> future = datosTerapia.get();
+			DocumentSnapshot document = future.get();
+			terapia = document.toObject(TipoTerapiaDTO.class);
+			terapia.setId(document.getId());
+			response.add(terapia);
+			return response;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return null;
+		}
+		
+	}
+	
 
 	
 	@Override

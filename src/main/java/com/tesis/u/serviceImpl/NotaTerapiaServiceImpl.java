@@ -37,6 +37,7 @@ public class NotaTerapiaServiceImpl implements NotaTerapiaService{
 		NotaTerapiaDTO notaTerapia;
 		PacienteDTO paciente;
 		EnfermeraDTO enfermera;
+		TipoTerapiaDTO tipoTerapia;
 
 		ApiFuture<QuerySnapshot> querySnapshotApiFuture = getCollection().get();
 
@@ -48,6 +49,7 @@ public class NotaTerapiaServiceImpl implements NotaTerapiaService{
 				
 				DocumentReference datosPaciente = firebase.getFirestore().collection("Paciente") .document(notaTerapia.getIdPaciente());
 				DocumentReference datosEnfermera = firebase.getFirestore().collection("Enfermera").document(notaTerapia.getIdEnfermera());
+				DocumentReference datosTerapia = firebase.getFirestore().collection("TipoTerapia").document(notaTerapia.getIdTipoTerapia());
 				
 				ApiFuture<DocumentSnapshot> future = datosPaciente.get();
 				DocumentSnapshot document = future.get();
@@ -57,6 +59,10 @@ public class NotaTerapiaServiceImpl implements NotaTerapiaService{
 				DocumentSnapshot document2 = future2.get();
 				enfermera = document2.toObject(EnfermeraDTO.class);
 				
+				ApiFuture<DocumentSnapshot> futureTerapia = datosTerapia.get();
+				DocumentSnapshot documentTerapia = futureTerapia.get();
+				tipoTerapia = documentTerapia.toObject(TipoTerapiaDTO.class);
+				
 								
 				notaTerapia.setNombrePacienteTerapia(paciente.getNombrePaciente());
 				notaTerapia.setApellidoPacienteTerapia(paciente.getApellidoPaciente());
@@ -64,6 +70,7 @@ public class NotaTerapiaServiceImpl implements NotaTerapiaService{
 				notaTerapia.setNombreEnfermeraTerapia(enfermera.getNombre());
 				notaTerapia.setApellidoEnfermeraTerapia(enfermera.getApellido());
 				notaTerapia.setDocumentoEnfermera(enfermera.getNumeroIdentificacion());
+				notaTerapia.setTipoTerapia(tipoTerapia.getNombreTerapia());
 				response.add(notaTerapia);
 				
 			}
