@@ -66,7 +66,11 @@ public class LoginServiceImpl implements LoginService {
 			
 			if(enfermera.getDescripcionEstadoEnfermera().equals("Inactivo"))
 			{
-				return null;
+				login.setId(null);
+				login.setCorreo(null);
+				login.setRol("Inactivo");
+				LoginResponseDTO loginFinal = new LoginResponseDTO(login.getId(),login.getCorreo(),login.getRol());
+				return loginFinal;
 			}
 			else
 			{

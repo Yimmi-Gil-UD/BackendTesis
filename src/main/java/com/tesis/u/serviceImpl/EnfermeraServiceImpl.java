@@ -146,19 +146,57 @@ public class EnfermeraServiceImpl implements EnfermeraService{
 
 	@Override
 	public Boolean update(String id, Enfermera enfermera) {
-		Map<String, Object> docData = getDocData(enfermera);
-		ApiFuture<WriteResult> writeResultApiFuture = getCollection().document(id).set(docData);
+
+		EnfermeraDTO enfermeraV;
 		
 		try {
-			if(null != writeResultApiFuture.get()) {
-				return Boolean.TRUE;
-			}
-			return Boolean.FALSE;
-		}catch (Exception e) {
+		DocumentReference datosEnfermera = firebase.getFirestore().collection("Enfermera") .document(id);
+		ApiFuture<DocumentSnapshot> future = datosEnfermera.get();
+		DocumentSnapshot document = future.get();
+		enfermeraV = document.toObject(EnfermeraDTO.class);
+		enfermeraV.setId(document.getId());
+		
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			return Boolean.FALSE;
+			return null;
 		}
+		
+		
+		
+		if(enfermeraV.getPassword().equals(enfermera.getPassword()))
+		{
+			Map<String, Object> docData = getDocDataUpdate(enfermera);
+			ApiFuture<WriteResult> writeResultApiFuture = getCollection().document(id).set(docData);
+			
+			try {
+				if(null != writeResultApiFuture.get()) {
+					return Boolean.TRUE;
+				}
+				return Boolean.FALSE;
+			}catch (Exception e) {
+				// TODO Auto-generated catch block
+				return Boolean.FALSE;
+			}
+		}
+		else
+		{
+			Map<String, Object> docData = getDocData(enfermera);
+			ApiFuture<WriteResult> writeResultApiFuture = getCollection().document(id).set(docData);
+			
+			try {
+				if(null != writeResultApiFuture.get()) {
+					return Boolean.TRUE;
+				}
+				return Boolean.FALSE;
+			}catch (Exception e) {
+				// TODO Auto-generated catch block
+				return Boolean.FALSE;
+			}
+		}
+		
+
 	}
+	
 
 	@Override
 	public Boolean delete(String id) {
@@ -189,6 +227,22 @@ public class EnfermeraServiceImpl implements EnfermeraService{
 		//docData.put("password",passwordEncoder.encode(enfermera.getPassword()));
 		//docData.put("password",enfermera.getPassword());
 		docData.put("password",this.security.encrypt(enfermera.getPassword()));
+		docData.put("idGenero", enfermera.getIdGenero());
+		docData.put("idRol", enfermera.getIdRol());
+		docData.put("idEstadoEnfermera", enfermera.getIdEstadoEnfermera());
+		return docData;
+	}
+	
+	private Map<String, Object> getDocDataUpdate(Enfermera enfermera) {
+		Map<String, Object> docData = new HashMap<>();
+		docData.put("nombre", enfermera.getNombre());
+		docData.put("apellido", enfermera.getApellido());
+		docData.put("idTipoDocumentoE", enfermera.getIdTipoDocumentoE());
+		docData.put("numeroIdentificacion", enfermera.getNumeroIdentificacion());
+		docData.put("correo", enfermera.getCorreo());
+		//docData.put("password",passwordEncoder.encode(enfermera.getPassword()));
+		//docData.put("password",enfermera.getPassword());
+		docData.put("password",enfermera.getPassword());
 		docData.put("idGenero", enfermera.getIdGenero());
 		docData.put("idRol", enfermera.getIdRol());
 		docData.put("idEstadoEnfermera", enfermera.getIdEstadoEnfermera());
